@@ -17,3 +17,5 @@ const run = async () => {
   const transcript = await client.transcripts.create(config)
   console.log(transcript.text)
 }
+
+run()
