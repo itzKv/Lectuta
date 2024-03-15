@@ -1,6 +1,6 @@
-// npm install assemblyai
+// npm install 
 
-import { AssemblyAI } from 'assemblyai'
+const { AssemblyAI } = require('assemblyai');
 
 const client = new AssemblyAI({
   apiKey: "1b6435d5930847be973604f868675921"
