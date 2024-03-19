@@ -1,4 +1,5 @@
 Sehabis pull, jalankan command berikut di terminal:
+Firstly coba nomor 5 aja, kalau ga bisa semuanya. Thankyou.
 1. php artisan package:discover --ansi
 2. php artisan vendor:publish --tag=laravel-assets --ansi --force
 3. php artisan key:generate --ansi
