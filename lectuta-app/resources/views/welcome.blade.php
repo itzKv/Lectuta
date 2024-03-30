@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Lectuta</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -63,6 +63,16 @@
                     <main class="mt-6">
                         <h1 class="title text-center" >Lectuta</h1>
                     </main>
+                    
+
+                    <form method="POST" action="{{ route('test.delete', ['email' => request('email')]) }}" style="color: black;">
+                        @csrf
+                        <div>
+                            <label for="email">Email</label>
+                            <input id="email" type="email" name="email" required>
+                        </div>
+                        <button type="submit">Delete User</button>
+                    </form>
 
                     <footer class="py-16 text-center text-sm text-black dark:text-white/70">
                     </footer>
