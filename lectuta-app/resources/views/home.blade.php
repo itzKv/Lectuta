@@ -318,7 +318,11 @@ body {
 
 <div class="container-fluix px-2 px-md-4">
     <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
-    <span class="mask  bg-gradient-primary  opacity-6"></span>
+      <span class="mask bg-gradient-primary opacity-1"></span>
+      <div class="username container-fluid mb-4 ms-6 mt-4">
+        <h4 class="text-white" style="font-size: 1.4rem"></h4>
+        <h1 class="text-white text-size" style="font-size: 4.7rem">{{ Auth::user()->name }}</h1>
+      </div>
     </div>
     <hr>
     <div class="row mb-4">
@@ -381,36 +385,31 @@ body {
                   <span aria-hidden="true">></span>
                 </a>
               </div>
-              <div class="alert alert-primary alert-dismissible text-white" role="alert">
-                <span class="text-sm">Title of the document.<a href="javascript:;" class="alert-link text-white"> Click Here</a> to view.</span>
-                <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="alert alert-primary alert-dismissible text-white" role="alert">
-                <span class="text-sm">Title of the document.<a href="javascript:;" class="alert-link text-white"> Click Here</a> to view.</span>
-                <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="alert alert-primary alert-dismissible text-white" role="alert">
-                <span class="text-sm">Title of the document.<a href="javascript:;" class="alert-link text-white"> Click Here</a> to view.</span>
-                <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="alert alert-primary alert-dismissible text-white" role="alert">
-                <span class="text-sm">Title of the document.<a href="javascript:;" class="alert-link text-white"> Click Here</a> to view.</span>
-                <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-
             </div>
       </div>
 </div>
 
 <script>
+  const greetingEl = document.querySelector('.username h4'); // Target the h1 element
+
+  function updateGreeting() {
+    const now = new Date();
+    const hours = now.getHours();
+
+    let greeting;
+    if (hours < 12) {
+        greeting = 'Good Morning';
+    } else if (hours < 17) {
+        greeting = 'Good Afternoon';
+    } else {
+        greeting = 'Good Evening';
+    }
+
+    greetingEl.textContent = greeting; // Update the content
+  }
+  updateGreeting(); // Call initially to display greeting
+  setInterval(updateGreeting, 60000); // Update every minute
+
     const isLeapYear = (year) => {
   return (
     (year % 4 === 0 && year % 100 !== 0 && year % 400 !== 0) ||
