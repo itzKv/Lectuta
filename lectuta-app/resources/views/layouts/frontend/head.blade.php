@@ -13,6 +13,8 @@
   <link rel="dns-prefetch" href="//fonts.bunny.net">
   <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+  
+
   <!-- Nucleo Icons -->
   <link href="{{asset('../template/assets/css/nucleo-icons.css" rel="stylesheet')}}" />
   <link href="{{asset('../template/assets/css/nucleo-svg.css" rel="stylesheet')}}" />
