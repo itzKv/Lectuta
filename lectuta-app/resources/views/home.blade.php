@@ -319,9 +319,9 @@ body {
 <div class="container-fluix px-2 px-md-4">
     <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
       <span class="mask bg-gradient-primary opacity-1"></span>
-      <div class="username container-fluid mb-4 ms-6 mt-4">
+      <div class="username container-fluid mb-2 ms-6 mt-2">
         <h4 class="text-white" style="font-size: 1.4rem"></h4>
-        <h1 class="text-white text-size" style="font-size: 4.7rem">{{ Auth::user()->name }}</h1>
+        <h1 class="text-white text-size" style="font-size: 5.9rem">{{ Auth::user()->name }}</h1>
       </div>
     </div>
     <hr>
