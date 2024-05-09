@@ -85,7 +85,7 @@ h5 {
     </div>
     <hr>
     <div class="min-height-300 ms-auto text-center">
-      <form action="{{ route('goToUploadAudio') }}" method="POST" enctype="multipart/form-data" id="audioUpload" class="dropzone text-black">
+      <form action="{{ route('uploadAudio') }}" method="POST" enctype="multipart/form-data" id="audioUpload" class="dropzone text-black">
         @csrf
         <div class="dz-message mb-2 mt-2" data-dz-message><i class="gg-add mt-4" id="add-icon"></i></div>
         <div class="dz-message mb-2 mt-2" data-dz-message><span>Drop files to upload</span></div>
@@ -103,8 +103,8 @@ h5 {
             <div class="col-sm text-center">
               <div class="card card-plain">
                   <div class="card-header">
-                    <h1 class="mt-2 mb-4">Audio File</h1>
-                    <p class="mb-0">Details of the file</p>
+                    <h1 id="audioFileName" class="mt-2 mb-4">Audio File</h1>
+                    <p id="audioFileDetail" class="mb-0">Details of the file</p>
                   </div>
               </div>
             </div>
@@ -118,9 +118,11 @@ h5 {
                     </h1>
                     <div class="button-container">
                       <button id="cancel-button" class="btn btn-white ml-2 mr-8" style="border:0.5px solid black;">Cancel</button>
-                      <button id="continue-button" class="btn btn-primary ml-8 mr-2">Continue</button>
-                    </div>
-                    
+                      <form action="" method="GET" id="editAudio">
+                        @csrf
+                        <input id="filepath" type="hidden" name="filepath" value="" autocomplete="off">
+                        <button id="continue-button" class="btn btn-primary ml-8 mr-2">Continue</button>
+                      </form>
                   </form>
                 </div>
               </div>
@@ -153,6 +155,32 @@ h5 {
             this.on("complete", function(file) {
                 $(".dz-remove").html("<div class='mt-4 mb-2'><span class='fa fa-trash text-danger' style='font-size: 1.5em; cursor: pointer; font-color: primary'></span></div>");
             });
+
+            this.on("removedfile", function(file) {
+              $('#message').text('Audio delete in progress...');
+              $("#continue-button").prop("disabled", true);
+              $.ajax({
+                url: "/audio/upload", // Replace with your actual route path
+                method: "DELETE", // Adjust based on your route (GET, POST, etc.)
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Update UI on successful deletion (e.g., reset text, file input)
+                    $('#audioFileName').text('Audio File');
+                    $('#audioFileDetail').text('Details of the file');
+                    $('#filepath').val('');
+                    $('#message').text('Audio deleted successfully');
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("Error deleting audio:", textStatus, errorThrown);
+                    // Handle errors (e.g., display error message)
+                },
+                complete: function() {
+                    $("#continue-button").prop("disabled", false);
+                }
+            });
+        });
         },
         maxfilesexceeded: function(file) {
             this.removeFile(file);
@@ -162,6 +190,9 @@ h5 {
         },
         success: function (file, response) {
             $('#message').text(response.success);
+            $('#audioFileName').text(response.filename);
+            $('#audioFileDetail').text(response.duration);
+            $('#filepath').val(response.filenameWithExtension);
         },
         error: function (file, response) {
             var errorMessage = '';
@@ -178,12 +209,17 @@ h5 {
         },
         removefile: function(file) {
             this.removeFile(file);
-            $('#message').text('');
+            $('#message').text('Success delete');
         },
     };
+
     $('#continue-button').click(function() {
-      alert("Directing to Edit Audio Page.");
+      if($('#filepath').val() == '') {
+        $('#message').text('Please upload an audio file first.');
+        return false;
+      }
     })
+
 
 </script>
 
