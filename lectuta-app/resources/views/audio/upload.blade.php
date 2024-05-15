@@ -97,7 +97,7 @@ h5 {
       <h5 class="text-black mt-4" id="message"></h5>
     </div>
 
-    <div class="min-height-160 ms-auto">
+    <div class="min-height-200 ms-auto">
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm text-center">
@@ -117,7 +117,7 @@ h5 {
                       Generate your <span class="text-primary">notes</span> now?
                     </h1>
                     <div class="button-container">
-                      <button id="cancel-button" class="btn btn-white ml-2 mr-8" style="border:0.5px solid black;">Cancel</button>
+                      <!-- <button id="cancel-button" class="btn btn-white ml-2 mr-8" style="border:0.5px solid black;">Cancel</button> -->
                       <form action="" method="GET" id="editAudio">
                         @csrf
                         <input id="filepath" type="hidden" name="filepath" value="" autocomplete="off">
@@ -171,6 +171,9 @@ h5 {
                     $('#audioFileDetail').text('Details of the file');
                     $('#filepath').val('');
                     $('#message').text('Audio deleted successfully');
+                    setTimeout(function() {
+                      $('#message').text('');
+                    }, 5000);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("Error deleting audio:", textStatus, errorThrown);
