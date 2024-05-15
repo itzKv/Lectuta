@@ -102,7 +102,7 @@ h5 {
           <div class="row">
             <div class="col-sm text-center">
               <div class="card card-plain">
-                  <div class="card-header">
+                  <div class="card-header" style="min-height: 175px;">
                     <h1 id="audioFileName" class="mt-2 mb-4">Audio File</h1>
                     <p id="audioFileDetail" class="mb-0">Details of the file</p>
                   </div>
@@ -111,7 +111,7 @@ h5 {
 
             <div class="col-sm text-center">
               <div class="card card-plain">
-                <div class="card-header">
+                <div class="card-header" style="min-height: 175px;">
                   <form> <!-- Note: add route to edit audio -->
                     <h1 class="mt-2 mb-4">
                       Generate your <span class="text-primary">notes</span> now?
