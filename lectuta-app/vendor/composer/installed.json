@@ -1317,7 +1317,7 @@
                     "dev-master": "1.9.x-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "classmap": [
                     "getid3/"
@@ -1878,17 +1878,17 @@
         },
         {
             "name": "laravel/ui",
-            "version": "v4.5.2",
-            "version_normalized": "4.5.2.0",
+            "version": "v4.5.1",
+            "version_normalized": "4.5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/ui.git",
-                "reference": "c75396f63268c95b053c8e4814eb70e0875e9628"
+                "reference": "a3562953123946996a503159199d6742d5534e61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/ui/zipball/c75396f63268c95b053c8e4814eb70e0875e9628",
-                "reference": "c75396f63268c95b053c8e4814eb70e0875e9628",
+                "url": "https://api.github.com/repos/laravel/ui/zipball/a3562953123946996a503159199d6742d5534e61",
+                "reference": "a3562953123946996a503159199d6742d5534e61",
                 "shasum": ""
             },
             "require": {
@@ -1903,7 +1903,7 @@
                 "orchestra/testbench": "^7.35|^8.15|^9.0",
                 "phpunit/phpunit": "^9.3|^10.4|^11.0"
             },
-            "time": "2024-05-08T18:07:10+00:00",
+            "time": "2024-03-21T18:12:29+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1938,7 +1938,7 @@
                 "ui"
             ],
             "support": {
-                "source": "https://github.com/laravel/ui/tree/v4.5.2"
+                "source": "https://github.com/laravel/ui/tree/v4.5.1"
             },
             "install-path": "../laravel/ui"
         },
