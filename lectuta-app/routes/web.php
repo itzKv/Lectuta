@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AssemblyAI_Controller;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,3 +20,11 @@ Route::get('/auth/passwords/confirm', [App\Http\Controllers\Auth\ForgotPasswordC
 Route::get('/audio/upload', [App\Http\Controllers\AudioController::class, 'index'])->name('goToUploadAudio');
 Route::post('/audio/upload', [App\Http\Controllers\AudioController::class, 'upload'])->name('uploadAudio');
 Route::delete('/audio/upload', [App\Http\Controllers\AudioController::class, 'delete'])->name('deleteAudio');
+
+// AssemblyAI Route
+Route::get('/transcribe-form', function () {
+    return view('placeholder/transcribe_AI_test');
+});
+
+Route::post('/transcribe', [AssemblyAI_Controller::class, 'transcribe']);
+Route::get('/transcription-result', [AssemblyAI_Controller::class, 'showTranscriptionResult'])->name('transcription.result');
