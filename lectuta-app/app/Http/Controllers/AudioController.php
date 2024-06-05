@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 use getID3;
 
 class AudioController extends Controller
@@ -39,6 +40,9 @@ class AudioController extends Controller
 
         $destinationPath = public_path('template/assets/audio');
         $file->move($destinationPath, $filenameWithExtension);
+
+        # Getting filename to store in case needed for other controller
+        Session::flash('filename', $filename);
 
         return response()->json(['filenameWithExtension' => $filenameWithExtension, 'filename' => $filename, 'success' => 'Audio uploaded successfully!', 'duration' => $duration]);
     }

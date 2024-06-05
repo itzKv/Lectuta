@@ -121,7 +121,7 @@ h5 {
                       <form action="" method="GET" id="editAudio">
                         @csrf
                         <input id="filepath" type="hidden" name="filepath" value="" autocomplete="off">
-                        <button id="continue-button" class="btn btn-primary ml-8 mr-2">Continue</button>
+                        <button id="continue-button" class="btn btn-primary ml-8 mr-2"><a href="/notes/generate">Continue</a></button>
                       </form>
                   </form>
                 </div>
