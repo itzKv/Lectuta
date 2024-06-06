@@ -23,12 +23,16 @@ class AudioController extends Controller
     public function index()
     {
         $audioPath = public_path('template/assets/audio');
-        File::cleanDirectory($audioPath);
+        cleanDirectory($audioPath);
         return view ('audio.upload');
     }
     
     public function upload(Request $request)
     {
+        $request->validate([
+            'file' => 'required|file|mimes:mp3,wav,ogg'
+        ]);
+
         $file = $request->file('file');
         $filenameWithExtension = $file->getClientOriginalName();
         $filename = pathinfo($filenameWithExtension, PATHINFO_FILENAME);
@@ -41,16 +45,13 @@ class AudioController extends Controller
         $destinationPath = public_path('template/assets/audio');
         $file->move($destinationPath, $filenameWithExtension);
 
-        # Getting filename to store in case needed for other controller
-        Session::flash('filename', $filename);
-
         return response()->json(['filenameWithExtension' => $filenameWithExtension, 'filename' => $filename, 'success' => 'Audio uploaded successfully!', 'duration' => $duration]);
     }
 
     public function delete(Request $request)
     {
         $audioPath = public_path('template/assets/audio');
-        File::cleanDirectory($audioPath);
+        cleanDirectory($audioPath);
 
         return response()->json(['success' => 'Audio deleted successfully!']);
     }
