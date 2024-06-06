@@ -19,4 +19,5 @@ Route::get('/auth/passwords/confirm', [App\Http\Controllers\Auth\ForgotPasswordC
 Route::get('/audio/upload', [App\Http\Controllers\AudioController::class, 'index'])->name('goToUploadAudio');
 Route::post('/audio/upload', [App\Http\Controllers\AudioController::class, 'upload'])->name('uploadAudio');
 Route::delete('/audio/upload', [App\Http\Controllers\AudioController::class, 'delete'])->name('deleteAudio');
-Route::get('/notes/generate', [App\Http\Controllers\NotesController::class, 'index'])->name('goToNotes');
+Route::get('/notes', [App\Http\Controllers\NotesController::class, 'index'])->name('goToNotes');
+Route::post('/notes', [App\Http\Controllers\NotesController::class, 'generate'])->name('generateNotes');
