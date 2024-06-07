@@ -219,7 +219,30 @@ h5 {
     $('#continue-button').click(function() {
       if($('#filepath').val() == '') {
         $('#message').text('Please upload an audio file first.');
-        return false;
+      } else {
+        $("#continue-button").prop("disabled", true);
+        $('#message').text('Generating notes...');
+        $.ajax({
+                url: "/notes", // Replace with your actual route path
+                method: "POST", // Adjust based on your route (GET, POST, etc.)
+                data: {
+                    filename: $('#filepath').val()
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    $('#message').text('Succesfully generating notes');
+                    window.location.href = "/notes?notesId=" + response.notesId;
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $('#message').text("Error generating audio:", textStatus, errorThrown);
+                    // Handle errors (e.g., display error message)
+                },
+                complete: function() {
+                    $("#continue-button").prop("disabled", false);
+                }
+            });
       }
     })
 

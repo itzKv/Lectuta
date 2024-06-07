@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 use getID3;
 
 class AudioController extends Controller
@@ -22,12 +23,16 @@ class AudioController extends Controller
     public function index()
     {
         $audioPath = public_path('template/assets/audio');
-        File::cleanDirectory($audioPath);
+        cleanDirectory($audioPath);
         return view ('audio.upload');
     }
     
     public function upload(Request $request)
     {
+        $request->validate([
+            'file' => 'required|file|mimes:mp3,wav,ogg'
+        ]);
+
         $file = $request->file('file');
         $filenameWithExtension = $file->getClientOriginalName();
         $filename = pathinfo($filenameWithExtension, PATHINFO_FILENAME);
@@ -46,7 +51,7 @@ class AudioController extends Controller
     public function delete(Request $request)
     {
         $audioPath = public_path('template/assets/audio');
-        File::cleanDirectory($audioPath);
+        cleanDirectory($audioPath);
 
         return response()->json(['success' => 'Audio deleted successfully!']);
     }
