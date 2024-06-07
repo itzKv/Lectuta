@@ -47,7 +47,7 @@
             </div>
             <div class="col-lg-2">
                 <div class="float-lg-end pe-4">
-                    <p id="created-date" class="mt-2 me-2" id="notes-heading-dates">23/12/2024</p>
+                    <p id="created-date" class="mt-2 me-2" id="notes-heading-dates">{!! $createdAt !!}</p>
                 </div>
             </div>
         </div>

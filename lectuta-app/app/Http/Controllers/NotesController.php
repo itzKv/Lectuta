@@ -3,19 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Services\AssemblyAiService;
+use App\Services\GeminiAiService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Note;
 use Illuminate\Support\Facades\Auth;
+use DOMDocument;
 use File;
 
 class NotesController extends Controller
 {
     protected $assemblyAiService;
+    protected $geminiAiService;
 
-    public function __construct(AssemblyAiService $assemblyAiService)
+    public function __construct(AssemblyAiService $assemblyAiService, GeminiAiService $geminiAiService)
     {
         $this->assemblyAiService = $assemblyAiService;
+        $this->geminiAiService = $geminiAiService;
     }
 
     public function index(Request $request) {
@@ -83,13 +87,30 @@ class NotesController extends Controller
         //     </div>
         // ";
 
-        $notes = $response['text'];
+        $rawText = $response['text'];
+        $basePrompt = "Command: Diatas merupakan text hasil speech to text dari sebuah lecture. Bisakah Anda merapihkannya menjadi sebuah catatan? Perhatikan logika dari teksnya, benarkan jika ada yang salah. Kembangkan menjadi bullet_verbose. Buatlah html untuk notes tersebut agar saya dapat mengappend ke notes container di html saya dengan format: &lt;div class=\"notes-container\"&gt; --- Your Gemini Notes HTML lands here &lt;/div&gt;. Jangan ada preview atau basa-basi yang lain. Saya hanya perlu code htmlnya saja untuk saya salin dan tempel";
+        $prompt = $rawText . $basePrompt;
+        
+
+        $request->merge([
+            'prompt' => $prompt
+        ]);
+
+        try {
+            $response = $this->geminiAiService->fetchData($request);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+
+        $notesRes = $response['candidates'][0]['content']['parts'][0]['text'];
+        $notes = $this->extractNotes($notesRes);
 
         $filename = pathinfo($request->input('filename'), PATHINFO_FILENAME);
 
         $note = new Note(); 
         $note->user_id = Auth::user()->id;
         $note->filename = $filename;
+        $note->created_at = date('Y-m-d');
         $note->bodyHTML = $notes;
         $note->save();
         
@@ -103,5 +124,27 @@ class NotesController extends Controller
             'notes' => $notes,
             'success' => true,
         ]);
+    }
+
+    private function extractNotes($notes) {
+
+        $dom = new DOMDocument();
+
+        // Load HTML content from the $notes variable
+        $dom->loadHTML($notes);
+
+        // Find the div with class "notes-container"
+        $container = $dom->getElementsByTagName('div')->item(0);
+
+        // Initialize an empty string to store the extracted content
+        $extractedContent = '';
+
+        // Loop through the child nodes of the container div
+        foreach ($container->childNodes as $node) {
+            // Serialize the node to HTML and append it to the extracted content
+            $extractedContent .= $dom->saveHTML($node);
+        }
+
+        return $extractedContent;
     }
 }
