@@ -57,19 +57,17 @@ hr {
     <div class="min-height-500 border-radius-xl mt-4" style="background-color: #f2edee;">
         <div class="row">
             <div class="col-lg-10">
-                <h1 class="mt-4 mb-4 ms-4" style="color: #000000; size: 28px;">{!! $filename !!}</h1>
+                <h1 id="filename" class="mt-4 mb-4 ms-4" style="color: #000000; size: 28px;">{!! $filename !!}</h1>
             </div>
             <div class="col-lg-2">
                 <div class="float-lg-end pe-4">
-                    <p class="mt-2 me-2" id="notes-heading-dates">23/12/2024</p>
+                    <p id="created-date" class="mt-2 me-2" id="notes-heading-dates">{!! $createdAt !!}</p>
                 </div>
             </div>
         </div>
 
         <hr>
     
-        <div class="col-lg-12 ms-2" id="notes-body" style="max-height: 380px; overflow-y: auto;">
-            {!! $notes !!}
         <div class="col-lg-12 notes-content" id="notes-body" style="max-height: 380px; overflow-y: auto;">
             {!! $bodyHTML !!}
         </div>
