@@ -21,3 +21,16 @@ Route::post('/audio/upload', [App\Http\Controllers\AudioController::class, 'uplo
 Route::delete('/audio/upload', [App\Http\Controllers\AudioController::class, 'delete'])->name('deleteAudio');
 Route::get('/notes', [App\Http\Controllers\NotesController::class, 'index'])->name('goToNotes');
 Route::post('/notes', [App\Http\Controllers\NotesController::class, 'generate'])->name('generateNotes');
+Route::get('/notes/mynotes', [App\Http\Controllers\NotesController::class, 'myNotes'])->name('goToMyNotes');
+Route::delete('/notes/delete', [App\Http\Controllers\NotesController::class, 'deleteNote'])->name('deleteNotes');
+
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/login'); // Redirect to login page after logout
+  });
+
+Route::post('/deleteAccount', function () {
+    $user = Auth::user();
+    $user->delete();
+    return redirect('/login'); // Redirect to login page after account deletion
+  });
