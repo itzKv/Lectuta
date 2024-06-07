@@ -53,6 +53,15 @@ hr {
     </div>
     <hr>
 </div>
+
+<form action="/notes/updateTitle" method="POST">
+    @csrf
+    <input type="hidden" name="noteId" value="{{ $notesId }}">
+    <label for="title">New Title: </label>
+    <input type="text" name="filename" value="{{ $filename }}">
+    <button type="submit">Update</button>
+</form>
+
 <div class="container-fluid px-2 px-md-4">
     <div class="min-height-500 border-radius-xl mt-4" style="background-color: #f2edee;">
         <div class="row">

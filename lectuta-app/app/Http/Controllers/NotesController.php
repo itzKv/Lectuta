@@ -36,7 +36,7 @@ class NotesController extends Controller
             $filename = $note->filename;
             $createdAt = $note->created_at;
             $bodyHTML = $note->bodyHTML;
-            return view('notes.generate', compact('filename', 'createdAt', 'bodyHTML'));
+            return view('notes.generate', compact('notesId', 'filename', 'createdAt', 'bodyHTML'));
         } else {
             // Handle the case where the note is not found
             return response()->json(['error' => 'Note not found'], 404);
@@ -160,12 +160,21 @@ class NotesController extends Controller
         return $extractedContent;
     }
 
-    public function myNotes()
+    public function myNotes(Request $request)
     {
         $userId = Auth::user()->id;
-        $notes = Note::where('user_id', $userId)->get();
+        $sortAttribute = $request->input('sort', 'created_at'); // Default sort by created_at
+        $sortOrder = $request->input('order', 'asc'); // Default sort order asc
+        $searchQuery = $request->input('search', '');
 
-        return view ('notes/mynotes', ['notes' => $notes]);
+        $notes = Note::where('user_id', $userId)
+            ->when($searchQuery, function($query) use ($searchQuery) {
+                return $query->where('filename', 'like', '%' . $searchQuery . '%');
+            })
+            ->orderBy($sortAttribute, $sortOrder)
+            ->get();
+
+        return view('notes.mynotes', compact('notes', 'sortAttribute', 'sortOrder', 'searchQuery'));
     }
 
     public function deleteNote(Request $request) {
@@ -182,6 +191,31 @@ class NotesController extends Controller
         if ($note) {
             $note->delete();
             return response()->json(['success' => 'Note deleted successfully!']);
+        } else {
+            // Handle the case where the note is not found
+            return response()->json(['error' => 'Note not found'], 404);
+        }
+    }
+
+    public function updateTitle(Request $request) {
+
+        $userId = Auth::user()->id;
+        $notesId = $request->input('noteId');
+        $newTitle = $request->input('filename');
+
+        // Find the note by user_id and notes_id in a single query
+        $note = Note::where('user_id', $userId)
+                    ->where('id', $notesId)
+                    ->first();
+
+        if ($note) {
+            $note->filename = $newTitle;
+            $note->save();
+
+            $request->merge([
+                'notesId' => $notesId
+            ]);
+            return $this->index($request);
         } else {
             // Handle the case where the note is not found
             return response()->json(['error' => 'Note not found'], 404);
