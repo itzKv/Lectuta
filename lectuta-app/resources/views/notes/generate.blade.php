@@ -2,6 +2,8 @@
 
 @section('content')
 <style>
+.notes
+
 
 #notes-heading-dates {
     color: #FFFFFF; 
@@ -9,14 +11,14 @@
     font-size: 11px;
     letter-spacing: 0.1px;
 }
-.hr { 
+hr { 
   display: block;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 2rem;
+  margin-right: 2rem;
   border-width: 3px;
-  background: #FFFFFF;
+  background: #000000;
 } 
 
 .notes-sub-heading {
@@ -26,6 +28,18 @@
 }
 .notes-content {
     size: 14px;
+    margin-left: 1.8rem
+}
+.notes-content h1, h2{
+    size: 1.8rem;
+    color: #000000;
+    font-height: 1.5;
+    font-family: "PT Sans", Roboto, Tahoma, sans-serif;
+}
+
+#notes-body {
+    color: #000000;
+    font-family: "PT Sans", Roboto, Tahoma, sans-serif;
 }
 </style>
 
@@ -40,7 +54,7 @@
     <hr>
 </div>
 <div class="container-fluid px-2 px-md-4">
-    <div class="min-height-500 border-radius-xl mt-4" style="background-color: #B8B8B8;">
+    <div class="min-height-500 border-radius-xl mt-4" style="background-color: #f2edee;">
         <div class="row">
             <div class="col-lg-10">
                 <h1 class="mt-4 mb-4 ms-4" style="color: #000000; size: 28px;">{!! $filename !!}</h1>
@@ -52,11 +66,12 @@
             </div>
         </div>
 
-
         <hr>
     
         <div class="col-lg-12 ms-2" id="notes-body" style="max-height: 380px; overflow-y: auto;">
             {!! $notes !!}
+        <div class="col-lg-12 notes-content" id="notes-body" style="max-height: 380px; overflow-y: auto;">
+            {!! $bodyHTML !!}
         </div>
         
     </div>
