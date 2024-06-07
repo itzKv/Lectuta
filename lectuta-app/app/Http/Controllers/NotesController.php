@@ -24,11 +24,23 @@ class NotesController extends Controller
 
     public function index(Request $request) {
 
+        $userId = Auth::user()->id;
         $notesId = $request->input('notesId');
-        $filename = Note::find($notesId)->filename;
-        $createdAt = Note::find($notesId)->created_at;
-        $bodyHTML = Note::find($notesId)->bodyHTML;
-        return view('notes.generate', compact('filename', 'createdAt', 'bodyHTML'));
+
+        // Find the note by user_id and notes_id in a single query
+        $note = Note::where('user_id', $userId)
+                    ->where('id', $notesId)
+                    ->first();
+
+        if ($note) { 
+            $filename = $note->filename;
+            $createdAt = $note->created_at;
+            $bodyHTML = $note->bodyHTML;
+            return view('notes.generate', compact('filename', 'createdAt', 'bodyHTML'));
+        } else {
+            // Handle the case where the note is not found
+            return response()->json(['error' => 'Note not found'], 404);
+        }
     }
 
     public function generate(Request $request) {
