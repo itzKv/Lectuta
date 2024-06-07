@@ -38,7 +38,7 @@ class NotesController extends Controller
         ]);
 
         $filename = $request->input('filename');
-        $filePath = public_path('template\assets\audio\\' . $filename);
+        $filePath = public_path('template/assets/audio/' . $filename);
 
         $request->merge([
             'apiURL' => 'upload',
