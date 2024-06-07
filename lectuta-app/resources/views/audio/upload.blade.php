@@ -233,7 +233,6 @@ h5 {
                 },
                 success: function(response) {
                     $('#message').text('Succesfully generating notes');
-                    console.log(response);
                     window.location.href = "/notes?notesId=" + response.notesId;
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
