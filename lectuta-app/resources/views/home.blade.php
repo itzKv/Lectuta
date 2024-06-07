@@ -16,10 +16,10 @@ body {
 }
 
 .calendar {
-  height: 35.5rem;
+  height: 34rem;
   width: 56.5;
   background-color: white;
-  border-radius: 25px;
+  border-radius: 0.75rem;
   overflow: hidden;
   padding: 35px 35px 0px 35px;
 }
@@ -317,77 +317,79 @@ body {
 }
 </style>
 
-<div class="container-fluix px-2 px-md-4">
-    <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
+<div class="container-fluid px-2 px-md-4">
+    <div class="page-header min-height-300 border-radius-xl mt-3" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
       <span class="mask bg-gradient-primary opacity-1"></span>
       <div class="username container-fluid mb-2 ms-6 mt-2">
         <h4 class="text-white" style="font-size: 1.4rem"></h4>
         <h1 class="text-white text-size" style="font-size: 5.9rem">{{ Auth::user()->name }}</h1>
       </div>
     </div>
-    <hr>
-    <div class="row mb-4">
-        <div id="contianerContainer" class="col-lg-8 col-md-4">
-                <div class="contianer">
-                    <div class="calendar">
-                        <div class="calendar-header">
-                            <span class="month-picker" id="month-picker"> May </span>
-                            <div class="year-picker" id="year-picker">
-                            <span class="year-change" id="pre-year">
-                                <pre><</pre>
-                            </span>
-                            <span id="year">2020 </span>
-                            <span class="year-change" id="next-year">
-                                <pre>></pre>
-                            </span>
-                            </div>
-                        </div>
+</div>
 
-                        <div class="calendar-body">
-                            <div class="calendar-week-days">
-                            <div>Sun</div>
-                            <div>Mon</div>
-                            <div>Tue</div>
-                            <div>Wed</div>
-                            <div>Thu</div>
-                            <div>Fri</div>
-                            <div>Sat</div>
-                            </div>
-                                <div class="calendar-days">
-                            </div>
-                        </div>
-                        <div class="calendar-footer">
-                        </div>
-                        <div class="date-time-formate">
-                            <div class="day-text-formate">TODAY</div>
-                            <div class="date-time-value">
-                            <div class="time-formate">01:41:20</div>
-                            <div class="date-formate">03 - March - 2022</div>
-                            </div>
-                        </div>
-                        <div class="month-list"></div>
-                    </div>
-            </div>
+<div class="container-fluid px-2 px-md-4 mt-4">
+  <div class="row mb-4">
+      <div id="containerContainer" class="col-lg-8 col-md-4">
+              <div class="container">
+                  <div class="calendar">
+                      <div class="calendar-header">
+                          <span class="month-picker" id="month-picker"> May </span>
+                          <div class="year-picker" id="year-picker">
+                          <span class="year-change" id="pre-year">
+                              <pre><</pre>
+                          </span>
+                          <span id="year">2020 </span>
+                          <span class="year-change" id="next-year">
+                              <pre>></pre>
+                          </span>
+                          </div>
+                      </div>
 
-        </div>
+                      <div class="calendar-body">
+                          <div class="calendar-week-days">
+                          <div>Sun</div>
+                          <div>Mon</div>
+                          <div>Tue</div>
+                          <div>Wed</div>
+                          <div>Thu</div>
+                          <div>Fri</div>
+                          <div>Sat</div>
+                          </div>
+                              <div class="calendar-days">
+                          </div>
+                      </div>
+                      <div class="calendar-footer">
+                      </div>
+                      <div class="date-time-formate">
+                          <div class="day-text-formate">TODAY</div>
+                          <div class="date-time-value">
+                          <div class="time-formate">01:41:20</div>
+                          <div class="date-formate">03 - March - 2022</div>
+                          </div>
+                      </div>
+                      <div class="month-list"></div>
+                  </div>
+          </div>
 
-        <div class="col-lg-4 col-md-6">
-            <div class="card mt-4">
-                <div class="card-header p-3">
-                    <h5 class="mb-0">Your Recent Notes</h5>
-                    <p class="text-sm mb-0">
-                        Choose the latest added notes.
-                    </p>
-            </div>
-            <div class="card-body p-3 pb-0">
-              <div class="alert alert-primary alert-dismissible text-white" role="alert">
-                <span class="text-sm">Title of the document.</span>
-                <a class="btnOpen text-lg py-3 opacity-10 text-white" data-bs-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">></span>
-                </a>
-              </div>
-            </div>
       </div>
+
+      <div class="col-lg-4 col-md-6">
+          <div class="card">
+              <div class="card-header ms-1 p-3">
+                  <h5 class="mb-0" style="color: #000000;">Your Recent Notes</h5>
+                  <p class="text-sm mb-0">
+                      Choose the latest added notes.
+                  </p>
+          </div>
+          <div class="card-body p-3 pb-0">
+            <div class="alert alert-primary alert-dismissible text-white" role="alert">
+              <span class="text-sm">Title of the document.</span>
+              <a class="btnOpen text-lg py-3 opacity-10 text-white" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">></span>
+              </a>
+            </div>
+          </div>
+    </div>
 </div>
 
 <script>
