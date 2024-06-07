@@ -58,20 +58,26 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="/goToLogout">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">login</i>
-            </div>
-            <span class="nav-link-text ms-1">Log out</span>
-          </a>
+          <form method="POST" action="/logout">
+            @csrf
+            <a class="nav-link text-white" href="#" onclick="event.preventDefault(); this.closest('form').submit();">
+              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="material-icons opacity-10">login</i>
+              </div>
+              <span class="nav-link-text ms-1">Log out</span>
+            </a>
+          </form>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="/goToDeleteAccount">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">assignment</i>
-            </div>
-            <span class="nav-link-text ms-1">Delete Account</span>
-          </a>
+          <form method="POST" action="/deleteAccount">
+            @csrf
+            <a class="nav-link text-white" href="#" onclick="event.preventDefault(); this.closest('form').submit();">
+              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="material-icons opacity-10">assignment</i>
+              </div>
+              <span class="nav-link-text ms-1">Delete Account</span>
+            </a>
+          </form>
         </li>
       </ul>
     </div>
