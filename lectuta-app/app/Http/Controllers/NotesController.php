@@ -159,4 +159,32 @@ class NotesController extends Controller
 
         return $extractedContent;
     }
+
+    public function myNotes()
+    {
+        $userId = Auth::user()->id;
+        $notes = Note::where('user_id', $userId)->get();
+
+        return view ('notes/mynotes', ['notes' => $notes]);
+    }
+
+    public function deleteNote(Request $request) {
+
+        $userId = Auth::user()->id;
+        $notesId = $request->input('noteId');
+
+        // Find the note by user_id and notes_id in a single query
+        $note = Note::where('user_id', $userId)
+                    ->where('id', $notesId)
+                    ->first();
+
+
+        if ($note) {
+            $note->delete();
+            return response()->json(['success' => 'Note deleted successfully!']);
+        } else {
+            // Handle the case where the note is not found
+            return response()->json(['error' => 'Note not found'], 404);
+        }
+    }
 }
