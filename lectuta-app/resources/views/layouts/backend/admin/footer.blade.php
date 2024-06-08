@@ -1,4 +1,15 @@
-<footer class="footer py-4 mt-5">
+<style>
+  .ps {
+    overflow-y: auto !important;
+  }
+
+  .py-4 {
+    padding-bottom: 0.5rem !important;
+    bottom: 0;
+  }
+</style>
+
+<footer class="footer py-4 me-3 ms-3">
   <div class="container-fluid">
     <div class="row align-items-center justify-content-lg-between">
       <div class="col-lg-6 mb-lg-0 mb-4">

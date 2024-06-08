@@ -2,89 +2,97 @@
 
 @section('content')
 
+
 <style>
-    .delete-button {
-        float: right;
-        margin-top: 10px;
-    }
-    .note-container {
-        background-color: #f2edee;
-        border-radius: 10px;
-        padding: 15px;
-        margin-bottom: 10px;
-    }
-    .form-inline-custom {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .form-control-custom {
-        border: 2px solid #ccc;
-        border-radius: 4px;
-        padding: 8px;
-        width: auto;
-    }
+
+.container-notes {
+    min-height: 560px !important;
+}
+#filename {
+    font-family: "PT Sans", Roboto, Tahoma, sans-serif;
+}
+
+.delete-button .material-icons {
+    font-size: 30px; 
+}
+
+.delete-button:hover {
+    cursor: pointer;
+}
+.z-index, h6: hover {
+    color: --bs-primary;
+}
 </style>
 
-<div class="container mt-4">
-    <h1 class="mb-4">Notes</h1>
 
-    <!-- Search and Sorting Form -->
-    <form method="GET" action="{{ route('goToMyNotes') }}" class="form-inline-custom mb-4">
-        <input type="text" name="search" class="form-control form-control-custom mb-2 mr-sm-2" placeholder="Search notes" value="{{ $searchQuery }}">
-        
-        <select name="sort" class="form-control form-control-custom mb-2 mr-sm-2">
-            <option value="created_at" {{ $sortAttribute == 'created_at' ? 'selected' : '' }}>Sort by Created At</option>
-            <option value="filename" {{ $sortAttribute == 'filename' ? 'selected' : '' }}>Sort by Filename</option>
-            <!-- Add more sorting options as needed -->
-        </select>
-
-        <select name="order" class="form-control form-control-custom mb-2 mr-sm-2">
-            <option value="asc" {{ $sortOrder == 'asc' ? 'selected' : '' }}>Ascending</option>
-            <option value="desc" {{ $sortOrder == 'desc' ? 'selected' : '' }}>Descending</option>
-        </select>
-
-        <button type="submit" class="btn btn-primary mb-2">Apply</button>
-        </form>
-
-    @foreach ($notes as $note)
-        <div class="note-container" id="note-{{ $note->id }}">
-            <div class="row">
-                <div class="col-md-10">
-                    <h2 class="mt-2 mb-2" style="color: #000;">{{ $note->filename }}</h2>
-                    <p>Created at: {{ $note->created_at }}</p>
-                </div>
-                <div class="col-md-2 text-right">
-                    <button class="btn btn-danger delete-button" data-id="{{ $note->id }}">Delete</button>
-                </div>
-            </div>
+<div class="container-fluid px-2 px-md-4">
+    <div class="page-header min-height-300 border-radius-xl mt-3" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
+        <span class="mask bg-gradient-primary opacity-1"></span>
+            <div class="username container-fluid mb-2 ms-6 mt-2">
+                <h4 class="text-white" style="font-size: 1.4rem">Hey, review your</h4>
+                <h1 class="text-white text-size" style="font-size: 5.9rem">Notes Collection</h1>
         </div>
-    @endforeach
+    </div>
 </div>
 
-    <!-- Bootstrap JS (optional) -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.delete-button').click(function() {
-                const noteId = $(this).data('id');
-                $.ajax({
-                    url: `/notes/delete`,
-                    method: 'DELETE',
-                    data: {
-                        noteId: noteId
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        $(`#note-${noteId}`).remove();
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.error(textStatus, errorThrown);
-                    }
-                });
+<div class="container-fluid container-notes px-2 px-md-4">
+    <div class="row mt-6">
+        <?php foreach ($notes as $note) : ?>
+            <?php
+                // Generate a random image ID
+                $imageId = rand(1, 1000);
+                // Construct the URL for the random image using Lorem Picsum
+                $imageUrl = "https://picsum.photos/id/{$imageId}/500/300";
+            ?>
+
+            <div class="col-lg-4 col-md-2 mt-4 mb-6" id="note-{{ $note->id }}">
+                <div class="card z-index-2 ">
+                    <a href="" class="open-button" data-id="{{ $note->id }}">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                        <div class="border-radius-lg py-3 pe-1" style="background-image: url('{!!  $imageUrl !!}'); background-size: cover; background-position: center;">
+                            <div class="chart">
+                                <canvas id="chart-bars" class="chart-canvas" height="305" width="529" style="display: block; box-sizing: border-box; height: 170px; width: 293.9px;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="mb-0" style="color: #000000; font-size: 26px;">{!! $note->filename !!}</h6>
+                        <hr class="dark horizontal">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="text-sm ms-2">{!! $note->formatted_date !!}</p>
+                            <button class="btn btn-danger bg-gradient-primary btn-sm delete-button" data-id="{{ $note->id }}"><i class="material-icons">delete</i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        const notes = @json($notes); 
+        console.log("Collected Notes:", notes);
+        
+        $('.delete-button').click(function() {
+            const noteId = $(this).data('id');
+            $.ajax({
+                url: `/notes/delete`,
+                method: 'DELETE',
+                data: {
+                    noteId: noteId
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    $(`#note-${noteId}`).remove();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error(textStatus, errorThrown);
+                }
             });
         });
-    </script>
+    });
+</script>   
 @endsection 

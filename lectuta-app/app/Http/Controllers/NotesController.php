@@ -34,7 +34,7 @@ class NotesController extends Controller
 
         if ($note) { 
             $filename = $note->filename;
-            $createdAt = $note->created_at;
+            $createdAt = $note->created_at->format('Y-m-d');
             $bodyHTML = $note->bodyHTML;
             return view('notes.generate', compact('notesId', 'filename', 'createdAt', 'bodyHTML'));
         } else {
@@ -163,16 +163,10 @@ class NotesController extends Controller
     public function myNotes(Request $request)
     {
         $userId = Auth::user()->id;
-        $sortAttribute = $request->input('sort', 'created_at'); // Default sort by created_at
-        $sortOrder = $request->input('order', 'asc'); // Default sort order asc
-        $searchQuery = $request->input('search', '');
-
-        $notes = Note::where('user_id', $userId)
-            ->when($searchQuery, function($query) use ($searchQuery) {
-                return $query->where('filename', 'like', '%' . $searchQuery . '%');
-            })
-            ->orderBy($sortAttribute, $sortOrder)
-            ->get();
+        $notes = Note::where('user_id', $userId)->get();
+        foreach ($notes as $note) {
+            $note->formatted_date = $note->created_at->format('Y-m-d');
+        }
 
         return view('notes.mynotes', compact('notes', 'sortAttribute', 'sortOrder', 'searchQuery'));
     }
