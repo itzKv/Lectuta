@@ -99,7 +99,7 @@ h5 {
         </div>
       </form>     
 
-      <h5 class="text-black mt-4 mb-2" id="message"></h5>
+      <h5 class="text-black mt-4 mb-4" id="message"></h5>
     </div>
   <div class="min-height-200 ms-auto">
         <div class="container-fluid">
@@ -240,7 +240,7 @@ h5 {
                     window.location.href = "/notes?notesId=" + response.notesId;
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    $('#message').text("Error generating audio:", textStatus, errorThrown);
+                    $('#message').text("Error generating notes", textStatus, errorThrown);
                     // Handle errors (e.g., display error message)
                 },
                 complete: function() {

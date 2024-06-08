@@ -11,15 +11,6 @@
     font-size: 11px;
     letter-spacing: 0.1px;
 }
-hr { 
-  display: block;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-  margin-left: 2rem;
-  margin-right: 2rem;
-  border-width: 3px;
-  background: #000000;
-} 
 
 .notes-sub-heading {
     size: 18px;
@@ -40,6 +31,10 @@ hr {
 #notes-body {
     color: #000000;
     font-family: "PT Sans", Roboto, Tahoma, sans-serif;
+}
+
+#notes-container {
+    min-height: 560px !important;
 }
 </style>
 
@@ -62,7 +57,7 @@ hr {
 </form>
 
 <div class="container-fluid px-2 px-md-4">
-    <div class="min-height-500 border-radius-xl mt-4" style="background-color: #f2edee;">
+    <div class="border-radius-xl mt-4" id="notes-container" style="background-color: #f2edee;">
         <div class="row">
             <div class="col-lg-10">
                 <h1 id="filename" class="mt-4 mb-4 ms-4" style="color: #000000; size: 28px;">{!! $filename !!}</h1>
@@ -74,7 +69,7 @@ hr {
             </div>
         </div>
 
-        <hr>
+        <hr class="dark horizontal">
     
         <div class="col-lg-12 notes-content" id="notes-body" style="max-height: 380px; overflow-y: auto;">
             {!! $bodyHTML !!}
