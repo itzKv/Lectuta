@@ -163,9 +163,20 @@ class NotesController extends Controller
     public function myNotes(Request $request)
     {
         $userId = Auth::user()->id;
-        $notes = Note::where('user_id', $userId)->get();
-        foreach ($notes as $note) {
+        $sortAttribute = $request->input('sort', 'created_at');
+        $sortOrder = $request->input('order', 'asc'); 
+        $searchQuery = $request->input('search', '');	 
+
+        $notes = Note::where('user_id', $userId)
+            ->when($searchQuery, function($query) use ($searchQuery) {	
+                return $query->where('filename', 'like', '%' . $searchQuery . '%');	
+            })	
+            ->orderBy($sortAttribute, $sortOrder)	
+            ->get();	
+            
+        foreach ($notes as $note) {         
             $note->formatted_date = $note->created_at->format('Y-m-d');
+
         }
 
         return view('notes.mynotes', compact('notes', 'sortAttribute', 'sortOrder', 'searchQuery'));
