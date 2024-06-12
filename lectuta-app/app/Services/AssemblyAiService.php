@@ -50,11 +50,14 @@ class AssemblyAiService
 
         $apiURL = $request->input('apiURL'); 
         $audioURL = $request->input('audioURL');
+        $audio_language = $request->input('audio_language');
+        $auto_language_detection = $request->input('auto_language_detection');
 
         $data = [
             "audio_url" => $audioURL,
             "boost_param" => "high",
-            "language_code" => "id",
+            "language_code" => $audio_language,
+            "language_detection" => $auto_language_detection,
             "punctuate" => true,
             "speech_model" => "nano",
             "speech_threshold" => 0.5,
