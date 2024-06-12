@@ -116,13 +116,22 @@ h5 {
             <div class="col-sm text-center">
               <div class="card card-plain">
                 <div class="card-header" style="min-height: 175px;">
-                  <form> <!-- Note: add route to edit audio -->
-                    <h1 class="mt-2 mb-4">
+                  <form action="" method="GET" id="editAudio">
+                    <h1 class="mt-2 mb-2">
                       Generate your <span class="text-primary">notes</span> now?
                     </h1>
+                    <div class="form-check form-check-info text-start ps-0 mb-2" style="display: flex; justify-content: center; align-items: center;">
+                        <label class="mb-0" for="language" style="margin-right: 10px; color: black;">Audio Language:</label>
+                        <input class="form-check-input" type="checkbox" value="id" name="audio_language" id="indo" style="margin-left: 5px !important; margin-top: 0;">
+                        <label class="form-check-label mb-0" for="indo" style="color: black; margin-right: 20px;">
+                          Bahasa Indonesia
+                        </label>
+                        <input class="form-check-input" type="checkbox" value="id" name="audio_language" id="other" style="margin-left: 5px !important; margin-top: 0;">
+                        <label class="form-check-label mb-0" for="other" style="color: black;">
+                          Other Language
+                        </label>
+                    </div>
                     <div class="button-container">
-                      <!-- <button id="cancel-button" class="btn btn-white ml-2 mr-8" style="border:0.5px solid black;">Cancel</button> -->
-                      <form action="" method="GET" id="editAudio">
                         @csrf
                         <input id="filepath" type="hidden" name="filepath" value="" autocomplete="off">
                         <button id="continue-button" class="btn btn-primary ml-8 mr-2">Continue</button>
@@ -220,17 +229,30 @@ h5 {
         },
     };
 
+    $('#indo').click(function() {
+      $('#other').prop('checked', false);
+    });
+
+    $('#other').click(function() {
+      $('#indo').prop('checked', false);
+    });
+
     $('#continue-button').click(function() {
       if($('#filepath').val() == '') {
         $('#message').text('Please upload an audio file first.');
-      } else {
+      } 
+      else if (!$('#indo').is(':checked') && !$('#other').is(':checked')) {
+        $('#message').text('Please select the audio language.');
+      }
+      else {
         $("#continue-button").prop("disabled", true);
         $('#message').text('Generating notes...');
         $.ajax({
                 url: "/notes", // Replace with your actual route path
                 method: "POST", // Adjust based on your route (GET, POST, etc.)
                 data: {
-                    filename: $('#filepath').val()
+                    filename: $('#filepath').val(),
+                    audio_language: $('input[name="audio_language"]:checked').val()
                 },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
