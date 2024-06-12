@@ -72,10 +72,21 @@ class NotesController extends Controller
         } else {
             return response()->json(['error' => 'Audio URL not found in response!'], 500);
         }
+        
+        $audio_language = $request->input('audio_language');
+
+        if($audio_language == 'id') {
+            $auto_language_detection = false;
+        } else {
+            $audio_language = 'en';
+            $auto_language_detection = true;
+        }
 
         $request->merge([
             'apiURL' => 'transcript',
-            'audioURL' => $audioURL
+            'audioURL' => $audioURL,
+            'language_code' => $audio_language,
+            'auto_language_detection' => $auto_language_detection
         ]);
 
         try {
@@ -84,24 +95,8 @@ class NotesController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
 
-        // $notes = "
-        //     <div class=\"notes-sub-heading mt-4 ms-4 me-4\">
-        //             <h3 style=\"color: #000000;\">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
-        //         </div>
-        //         <div class=\"notes-content ms-4 me-4\">
-        //             <ul>
-        //                 <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum unde quam, fugiat, cumque, explicabo a modi mollitia ipsum sed repellendus qui adipisci laboriosam reiciendis voluptas est veniam atque cupiditate itaque? Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, reiciendis hic fuga dolores expedita voluptatum saepe ipsum consectetur dicta voluptas incidunt dolorem sequi quia esse pariatur dolorum totam doloribus dignissimos.</li>
-        //                 <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat aspernatur reprehenderit suscipit non, itaque nihil, dolorum aperiam voluptate odio laboriosam quia nam deserunt, cupiditate ut at commodi maiores ducimus eaque?</li>
-        //                 <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus ipsam cupiditate sunt. Qui aspernatur sed laboriosam consequuntur quasi provident veritatis deleniti placeat, excepturi dicta cupiditate itaque, non officiis fugit doloremque.</li>
-        //                 <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus explicabo, eum autem amet cumque similique. Minus illo nisi, esse cupiditate dolorum magnam, explicabo vel totam vitae ut saepe officia numquam!</li>
-        //                 <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit reiciendis, odit pariatur fuga corporis qui quasi a, distinctio tenetur est, sapiente quidem doloremque sequi maxime vitae nulla error odio earum! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum tempore porro maiores repellendus. At repudiandae officia a enim aliquid atque eius, explicabo aspernatur libero corporis ea! Iure doloribus consequatur ex. Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde aliquid magnam iste ipsum saepe blanditiis, facere excepturi ut. Impedit numquam sed necessitatibus maiores. Voluptas quis vel id facilis dignissimos omnis.</li>
-        //                 <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nihil commodi magnam deleniti. Mollitia harum, ipsum sit cum iure fugit maiores delectus ab praesentium eligendi! Doloribus tempore tempora pariatur voluptas!</li>
-        //             </ul>
-        //     </div>
-        // ";
-
         $rawText = $response['text'];
-        $basePrompt = "Command: Diatas merupakan text hasil speech to text dari sebuah lecture. Bisakah Anda merapihkannya menjadi sebuah catatan? Perhatikan logika dari teksnya, benarkan jika ada yang salah. Kembangkan menjadi bullet_verbose. Buatlah html untuk notes tersebut agar saya dapat mengappend ke notes container di html saya dengan format: &lt;div class=\"notes-container\"&gt; --- Your Gemini Notes HTML lands here &lt;/div&gt;. Jangan ada preview atau basa-basi yang lain. Saya hanya perlu code htmlnya saja untuk saya salin dan tempel";
+        $basePrompt = "Command: Diatas merupakan text hasil speech to text dari sebuah lecture. Bisakah Anda merapihkannya menjadi sebuah catatan berbahasa indonesia? Perhatikan logika dari teksnya, benarkan jika ada yang salah. Kembangkan menjadi bullet_verbose. Buatlah html untuk notes tersebut agar saya dapat mengappend ke notes container di html saya dengan format: &lt;div class=\"notes-container\"&gt; --- Your Gemini Notes HTML lands here &lt;/div&gt;. Jangan ada preview atau basa-basi yang lain. Saya hanya perlu code htmlnya saja untuk saya salin dan tempel";
         $prompt = $rawText . $basePrompt;
         
 

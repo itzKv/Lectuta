@@ -42,6 +42,14 @@
     font-family: "PT Sans", Roboto, Tahoma, sans-serif;
 }
 
+li {
+    font-size: 1rem ;
+    font-weight: 300 ;
+    color: #000000 ;
+    line-height: 1.625 ;
+    font-family: "PT Sans", Roboto, Tahoma, sans-serif;
+}
+
 #notes-body {
     color: #000000;
     font-family: "PT Sans", Roboto, Tahoma, sans-serif;
