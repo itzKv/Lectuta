@@ -2,119 +2,102 @@
 
 @section('content')
 <style>
-.notes
 
-#notes-heading-dates {
-    color: #FFFFFF; 
-    font-weight: bold; 
-    font-size: 11px;
-    letter-spacing: 0.1px;
-}
-
-.notes-sub-heading {
-    font-size: 18px;
-    font-weight: 2px;
-    color: #000000;
-}
-.notes-content {
-    font-size: 14px;
-    margin-left: 1.8rem;
-}
-.notes-content h1, h2 {
-    font-size: 1.8rem;
-    color: #000000;
-    line-height: 1.5;
-    font-family: "PT Sans", Roboto, Tahoma, sans-serif;
-}
-
-#notes-body {
-    color: #000000;
-    font-family: "PT Sans", Roboto, Tahoma, sans-serif;
-}
-
-#notes-container {
+.container-notes {
     min-height: 560px !important;
 }
+#filename {
+    font-family: "PT Sans", Roboto, Tahoma, sans-serif;
+}
 
-.form-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 2rem;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.open-button{
+    cursor: pointer;
+    text-decoration: none;
 }
-.form-container label {
-    font-weight: bold;
+
+.delete-button:hover {
+    cursor: pointer;
 }
-.form-container input[type="text"] {
-    margin-bottom: 1rem;
-}
-.form-container button {
-    background-color: #e91e63;
-    border: none;
-}
-.form-container button:hover {
-    background-color: #c2185b;
+.z-index, h6: hover {
+    color: --bs-primary;
 }
 </style>
+
 
 <div class="container-fluid px-2 px-md-4">
     <div class="page-header min-height-300 border-radius-xl mt-3" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
         <span class="mask bg-gradient-primary opacity-1"></span>
-        <div class="username container-fluid mb-2 ms-6 mt-2">
-            <h4 class="text-white" style="font-size: 1.4rem">Take a look at your</h4>
-            <h1 class="text-white text-size" style="font-size: 5.9rem">Notes</h1>
+            <div class="username container-fluid mb-2 ms-6 mt-2">
+                <h4 class="text-white" style="font-size: 1.4rem">Hey, review your</h4>
+                <h1 class="text-white text-size" style="font-size: 5.9rem">Notes Collection</h1>
         </div>
     </div>
 </div>
 
-<div class="container-fluid px-2 px-md-4">
-    <div class="border-radius-xl mt-4" id="notes-container" style="background-color: #f2edee;">
-        <div class="row">
-            <div class="col-lg-10">
-                <h1 id="filename" class="mt-4 mb-4 ms-4" style="color: #000000; font-size: 28px;">{!! $filename !!}</h1>
-            </div>
-            <div class="col-lg-2">
-                <div class="float-lg-end pe-4">
-                    <p id="created-date" class="mt-2 me-2" id="notes-heading-dates">{!! $createdAt !!}</p>
+<div class="container-fluid container-notes px-2 px-md-4">
+    <div class="row mt-6">
+        <?php foreach ($notes as $note) : ?>
+            <?php
+                // Generate a random image ID
+                $imageId = rand(1, 1000);
+                // Construct the URL for the random image using Lorem Picsum
+                $imageUrl = "https://picsum.photos/id/{$imageId}/500/300";
+            ?>
+
+            <div class="col-lg-4 col-md-2 mt-4 mb-6">
+                <div class="card z-index-2">
+                    <a class="open-button" data-id="{{ $note->id }}">
+                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                            <div class="border-radius-lg py-3 pe-1" style="background-image: url('{!!  $imageUrl !!}'); background-size: cover; background-position: center;">
+                                <div class="chart">
+                                    <canvas id="chart-bars" class="chart-canvas" height="305" width="529" style="display: block; box-sizing: border-box; height: 170px; width: 293.9px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <h6 class="mb-0" style="color: #000000; font-size: 26px;">{!! $note->filename !!}</h6>
+                            <hr class="dark horizontal">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="text-sm ms-2">{!! $note->formatted_date !!}</p>
+                                <button class="btn btn-danger bg-gradient-primary btn-sm delete-button" data-id="{{ $note->id }}"><i class="material-icons" style="font-size: 1rem;">delete</i></button>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
-        </div>
-
-        <!-- Form to Update Title -->
-        <div class="form-container">
-            <form action="/notes/updateTitle" method="POST" class="form-inline">
-                @csrf
-                <input type="hidden" name="noteId" value="{{ $notesId }}">
-                <div class="form-group mb-2">
-                    <label for="title" class="mr-2">New Title:</label>
-                    <input type="text" class="form-control" name="filename" value="{{ $filename }}">
-                </div>
-                <button type="submit" class="btn btn-primary mb-2">Update</button>
-            </form>
-        </div>
-
-        <hr class="dark horizontal">
-    
-        <div class="col-lg-12 notes-content" id="notes-body" style="max-height: 380px; overflow-y: auto;">
-            {!! $bodyHTML !!}
-        </div>
-        
+        <?php endforeach; ?>
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/#.#.#/jquery.jscroll.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        // Check if $filename exists
-        @if(isset($filename))
-            console.log("Filename exists:", {!! json_encode($filename) !!});
-        @else
-            console.log("Filename does not exist.");
-        @endif
+        const notes = @json($notes);  
+        console.log("Collected Notes:", notes);
+        
+        $('.delete-button').click(function() {
+            const noteId = $(this).data('id');
+            $.ajax({
+                url: "/notes/delete",
+                method: 'DELETE',
+                data: {
+                    noteId: noteId
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    $(`#note-${noteId}`).remove();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error(textStatus, errorThrown);
+                }
+            });
+        });
+        $(".open-button").click(function() {
+            const noteId = $(".open-button").data('id');
+            window.location.href = `/notes?notesId=${noteId}`;
+        });
     });
-</script>
-
+</script>   
 @endsection

@@ -35,8 +35,9 @@ class NotesController extends Controller
         if ($note) { 
             $filename = $note->filename;
             $createdAt = $note->created_at->format('Y-m-d');
+            $updatedAt = $note->updated_at->format('Y-m-d');
             $bodyHTML = $note->bodyHTML;
-            return view('notes.generate', compact('notesId', 'filename', 'createdAt', 'bodyHTML'));
+            return view('notes.generate', compact('notesId', 'filename', 'createdAt', 'updatedAt', 'bodyHTML'));
         } else {
             // Handle the case where the note is not found
             return response()->json(['error' => 'Note not found'], 404);
@@ -163,7 +164,7 @@ class NotesController extends Controller
     public function myNotes(Request $request)
     {
         $userId = Auth::user()->id;
-        $sortAttribute = $request->input('sort', 'created_at');
+        $sortAttribute = $request->input('sort', 'updated_at');
         $sortOrder = $request->input('order', 'asc'); 
         $searchQuery = $request->input('search', '');	 
 
@@ -175,7 +176,7 @@ class NotesController extends Controller
             ->get();	
             
         foreach ($notes as $note) {         
-            $note->formatted_date = $note->created_at->format('Y-m-d');
+            $note->formatted_date = $note->updated_at->format('Y-m-d');
 
         }
 

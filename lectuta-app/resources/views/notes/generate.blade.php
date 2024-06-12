@@ -2,12 +2,9 @@
 
 @section('content')
 <style>
-.notes
-
 #notes-heading-dates {
-    color: #FFFFFF; 
-    font-weight: bold; 
-    font-size: 11px;
+    color: #000000; 
+    font-size: 16px;
     letter-spacing: 0.1px;
 }
 
@@ -20,8 +17,26 @@
     font-size: 14px;
     margin-left: 1.8rem;
 }
-.notes-content h1, h2 {
-    font-size: 1.8rem;
+.notes-content h1 {
+    font-size: 2rem;
+    color: #000000;
+    line-height: 1.5;
+    font-family: "PT Sans", Roboto, Tahoma, sans-serif;
+}
+.notes-content h2 {
+    font-size: 1.75rem;
+    color: #000000;
+    line-height: 1.5;
+    font-family: "PT Sans", Roboto, Tahoma, sans-serif;
+}
+.notes-content h3, h4 {
+    font-size: 1.5rem;
+    color: #000000;
+    line-height: 1.5;
+    font-family: "PT Sans", Roboto, Tahoma, sans-serif;
+}
+.notes-content ul {
+    font-size: 1.2rem;
     color: #000000;
     line-height: 1.5;
     font-family: "PT Sans", Roboto, Tahoma, sans-serif;
@@ -30,10 +45,21 @@
 #notes-body {
     color: #000000;
     font-family: "PT Sans", Roboto, Tahoma, sans-serif;
+    max-height: 340px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding-right: 4rem; /* Adjust padding as needed */
 }
 
 #notes-container {
     min-height: 560px !important;
+    box-sizing: border-box;
+}
+
+#filename {
+    color: #000000; 
+    font-size: 46px;
+    letter-spacing: 0.15rem;
 }
 
 .form-container label {
@@ -58,6 +84,28 @@
 .ac-center {
     align-content: center;
 }
+.form-label {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .form-label {
+        width: 100%;
+    }
+
+    .col-form-label, .btn {
+        width: 100%;
+        text-align: left;
+    }
+}
+
+.custom-form-container {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
 </style>
 
 <div class="container-fluid px-2 px-md-4">
@@ -71,35 +119,40 @@
 </div>
 
 <div class="container-fluid px-2 px-md-4">
-    <div class="border-radius-xl mt-4" id="notes-container" style="background-color: #f2edee;">
-        <div class="row">
-            <div class="col-lg-10">
-                <h1 id="filename" class="mt-4 mb-4 ms-4" style="color: #000000; font-size: 28px;">{!! $filename !!}</h1>
-            </div>
-            <div class="col-lg-2">
-                <div class="float-lg-end pe-4">
-                    <p id="created-date" class="mt-2 me-2" id="notes-heading-dates">{!! $createdAt !!}</p>
+        <div class="border-radius-xl mt-4" id="notes-container" style="background-color: #f2edee;">
+            <div class="row">
+                <div class="col-lg-12 position-relative">
+                    <h1 id="filename" class="text-center mt-4 mb-2 w-100">{!! $filename !!}</h1>
+                    <div class="position-absolute top-0 end-0 me-4 mt-2">
+                        <p id="notes-heading-dates">{!! $createdAt !!}</p>
+                    </div>
+                    <div class="col-lg-12 justify-content-between">
+                        <div class="custom-form-container mt-1">
+                            <form class="row g-3" action="/notes/updateTitle" method="POST">
+                                @csrf
+                                <input type="hidden" name="noteId" value="{{ $notesId }}">
+                                <div class="row d-flex align-items-center">
+                                    <label for="title" class="ac-center col-lg-2 ms-2 text-center">New Title:</label>
+                                    <div class="col-lg-7">
+                                        <input type="text" class="form-label b" name="filename" value="{{ $filename }}">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <button type="submit" class="btn btn-primary btn-sm mt-2">Update</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
+
+            </div>
+
+            <hr class="dark horizontal">
+
+            <div class="col-lg-12 notes-content" id="notes-body">
+                {!! $bodyHTML !!}
             </div>
         </div>
-
-        <form class="row" action="/notes/updateTitle" method="POST">
-            @csrf
-            <input type="hidden" name="noteId" value="{{ $notesId }}">
-            <div class="row mb-2">
-                <label for="title" class="ac-center col-lg-1 mr-2">New Title:</label>
-                <input type="text" class="ac-center col-lg-5" name="filename" value="{{ $filename }}">
-                <button type="submit" class="ac-center col-lg-1 btn btn-primary">Update</button>
-            </div>
-        </form>
-
-        <hr class="dark horizontal">
-    
-        <div class="col-lg-12 notes-content" id="notes-body" style="max-height: 380px; overflow-y: auto;">
-            {!! $bodyHTML !!}
-        </div>
-        
-    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/#.#.#/jquery.jscroll.min.js"></script>
@@ -114,5 +167,4 @@
         @endif
     });
 </script>
-
 @endsection
