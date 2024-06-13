@@ -106,7 +106,7 @@ h5 {
           <div class="row">
             <div class="col-sm text-center">
               <div class="card card-plain">
-                  <div class="card-header" style="min-height: 175px;">
+                  <div class="card-header" style="min-height: 190px;">
                     <h1 id="audioFileName" class="mt-2 mb-4">Audio File</h1>
                     <p id="audioFileDetail" class="mb-0">Details of the file</p>
                   </div>
@@ -115,7 +115,7 @@ h5 {
 
             <div class="col-sm text-center">
               <div class="card card-plain">
-                <div class="card-header" style="min-height: 175px;">
+                <div class="card-header" style="min-height: 190px;">
                   <form action="" method="GET" id="editAudio">
                     <h1 class="mt-2 mb-2">
                       Generate your <span class="text-primary">notes</span> now?
@@ -154,15 +154,15 @@ h5 {
         maxFilesize: maxFilesizeVal, // MB
         maxFiles: maxFilesVal,
         resizeQuality: 1.0,
-        acceptedFiles: ".mp3",
+        acceptedFiles: ".mp3,.mp4,.m4a,.wav,.flac",
         addRemoveLinks: true,
         createImageThumbnails: true,
-        timeout: 120000,
+        timeout: 120000000,
         dictDefaultMessafge: "Drop your files here or browse from your computer to upload",
         dictRemoveFile: 'Remove Audio',
         dictFileTooBig: 'File too big',
         dictFallbackMessage: "Your browser doesn't support drag and drop file uploads.",
-        dictInvalidFileType: "Invalid file type. Only MP3 files are allowed.",
+        dictInvalidFileType: "Invalid file type.",
         dictMaxFilesExceeded: "You can only upload up to "+maxFilesVal+" files.",
         init: function() {
             this.on("complete", function(file) {
