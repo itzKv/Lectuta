@@ -29,8 +29,8 @@ class AudioController extends Controller
     
     public function upload(Request $request)
     {
-        $request->validate([
-            'file' => 'required|file|mimes:mp3,wav,ogg'
+        $request->validate([    
+            'file' => 'required|file|mimes:mp3,mp4,flac,m4a,wav,ogg'
         ]);
 
         $file = $request->file('file');
