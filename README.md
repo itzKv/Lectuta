@@ -34,7 +34,7 @@ _Below is steps of you can run Lectuta on your device._
    
 2. Make sure on the directory of **/lectuta-app**
    ```sh
-   cd lectuta/app
+   cd lectuta-app
    ```
 3. Install _composer_
    ```sh
