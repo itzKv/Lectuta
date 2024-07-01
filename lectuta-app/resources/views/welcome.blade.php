@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="row align-items-center mt-5">
-            <h2 class="col-7 mt-4">
+            <h2 class="col-7 mt-4 text-primary">
                 Takes your notes now!
             </h2>
             <div class="col-md-5 mt-4">
