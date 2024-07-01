@@ -19,3 +19,35 @@ Lectuta is an innovative web application that utilizes AI Speech-to-Text and Gem
 - [Bootstrap] - Bootstrap is a library for functionality within CSS framework and it made exclusively for Frontend Website development
 - [Google Chrome]
 - [Figma](https://www.figma.com/) - Figma helps design and development teams build product
+
+## Prerequisites
+Make sure your local machine has these versions:
+1. PHP ≥ 8.2.0
+2. Browser
+
+## Installation
+_Below is steps of you can run Lectuta on your device._
+1. Clone the repo
+   ```sh
+   git clone https://github.com/DLiech/SE-lectuta.git
+   ```
+   
+2. Make sure on the directory of **/lectuta-app**
+   ```sh
+   cd lectuta/app
+   ```
+3. Install _composer_
+   ```sh
+   composer install
+   ```
+4. Run _php_
+   ```sh
+   php artisan serve
+   ```
+
+## Contributor
+- [Kevin](https://github.com/itzKv)
+- [Deanzen](https://github.com/DLiech)
+- [Stanley](https://github.com/ToaStyToaFu)
+- [Dave]
+   
