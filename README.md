@@ -49,5 +49,5 @@ _Below is steps of you can run Lectuta on your device._
 - [Kevin](https://github.com/itzKv)
 - [Deanzen](https://github.com/DLiech)
 - [Stanley](https://github.com/ToaStyToaFu)
-- [Dave]
+- [Dave](https://github.com/davetjong2)
    
