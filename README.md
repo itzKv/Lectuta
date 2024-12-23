@@ -1,7 +1,11 @@
 # Lectuta
+
 ## Lectuta: AI Powered Lecture Conversion for Enhanced Student Learning
 
-![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white) ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white) ![Gemini AI](https://camo.githubusercontent.com/c99cf08227dfb9aaac41b41c1fb50a371d608a5ba85a1df02a1b31e1fdfd8deb/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f47656d696e692d3845373542323f7374796c653d666f722d7468652d6261646765266c6f676f3d676f6f676c6562617264266c6f676f436f6c6f723d666666) ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+[![Laravel](https://img.shields.io/badge/Laravel-%23FF2D20.svg?logo=laravel&logoColor=white)](#)
+[![PHP](https://img.shields.io/badge/php-%23777BB4.svg?&logo=php&logoColor=white)](#)
+[![Google Gemini](https://img.shields.io/badge/Google%20Gemini-886FBF?logo=googlegemini&logoColor=fff)](#) 
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?logo=bootstrap&logoColor=fff)](#)
 
 
 Lectuta is an innovative web application that utilizes AI Speech-to-Text and Gemini AI technologies to transform lecture audio recordings into structured and organized text. Designed to assist students in effectively capturing, understanding, and reviewing lecture content, Lectuta aims to enhance the overall learning experience and improve academic outcomes.
